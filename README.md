@@ -1,8 +1,15 @@
 fork from https://github.com/eBay/json-comparison
 
-我这里 新建一个项目 是想把 json-comparison 这个jar 包 上传到中央仓库。
- - [maven.aliyun.com/repository](maven.aliyun.com/repository)
- - [https://mvnrepository.com/](https://mvnrepository.com/)
+我这里 新建一个项目 是想把 comparison-core 这个jar 包 上传到中央仓库。
+ - [https://repo1.maven.org/maven2/io/github/nibnait/comparison-core/](https://repo1.maven.org/maven2/io/github/nibnait/comparison-core/)
+
+```xml
+<dependency>
+  <groupId>io.github.nibnait</groupId>
+  <artifactId>comparison-core</artifactId>
+  <version>1.2</version>
+</dependency>
+```
 
 # Json Comparison
 General Json Comparison, but includes various features of interest.
