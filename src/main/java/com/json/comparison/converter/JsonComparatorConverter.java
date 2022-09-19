@@ -34,29 +34,30 @@ import com.json.comparison.comprator.model.api.JsonComparatorResult;
  */
 public class JsonComparatorConverter implements Function<JSONCompareResult, JsonComparatorResult> {
 
-  @Override
-  public JsonComparatorResult apply(JSONCompareResult jsonCompareResult) {
+    @Override
+    public JsonComparatorResult apply(JSONCompareResult jsonCompareResult) {
 
-    JsonComparatorResultImplBuilder resultJsonComparatorResultImplBuilder = JsonComparatorResultImpl.builder()
-        .modifiedFields(createFieldComparison(jsonCompareResult.getFieldFailures()))
-        .missingFields(createFieldComparison(jsonCompareResult.getFieldMissing()))
-        .newFields(createFieldComparison(jsonCompareResult.getFieldUnexpected()));
-    return resultJsonComparatorResultImplBuilder.build();
-  }
+        JsonComparatorResultImplBuilder resultJsonComparatorResultImplBuilder = JsonComparatorResultImpl.builder()
+                .success(jsonCompareResult.passed())
+                .modifiedFields(createFieldComparison(jsonCompareResult.getFieldFailures()))
+                .missingFields(createFieldComparison(jsonCompareResult.getFieldMissing()))
+                .newFields(createFieldComparison(jsonCompareResult.getFieldUnexpected()));
+        return resultJsonComparatorResultImplBuilder.build();
+    }
 
-  private Collection<FieldComparison> createFieldComparison(
-      Collection<org.skyscreamer.jsonassert.FieldComparisonFailure> fieldComparisonFailures) {
-    return fieldComparisonFailures.stream()
-        .map(this::convertFieldComparison)
-        .collect(Collectors.toList());
-  }
+    private Collection<FieldComparison> createFieldComparison(
+            Collection<org.skyscreamer.jsonassert.FieldComparisonFailure> fieldComparisonFailures) {
+        return fieldComparisonFailures.stream()
+                .map(this::convertFieldComparison)
+                .collect(Collectors.toList());
+    }
 
-  private FieldComparison convertFieldComparison(org.skyscreamer.jsonassert.FieldComparisonFailure fieldComparisonFailure) {
-    return FieldComparisonImpl.builder()
-        .field(fieldComparisonFailure.getField())
-        .expected(fieldComparisonFailure.getExpected())
-        .actual(fieldComparisonFailure.getActual())
-        .build();
-  }
+    private FieldComparison convertFieldComparison(org.skyscreamer.jsonassert.FieldComparisonFailure fieldComparisonFailure) {
+        return FieldComparisonImpl.builder()
+                .field(fieldComparisonFailure.getField())
+                .expected(fieldComparisonFailure.getExpected())
+                .actual(fieldComparisonFailure.getActual())
+                .build();
+    }
 
 }

@@ -32,12 +32,13 @@ import com.json.comparison.comprator.model.api.JsonComparatorResult;
  * @see JsonComparatorResult
  */
 public class JsonComparatorResultImpl implements JsonComparatorResult {
-
+  private boolean success;
   private Collection<FieldComparison> modifiedFields;
   private Collection<FieldComparison> missingFields;
   private Collection<FieldComparison> newFields;
 
   private JsonComparatorResultImpl(JsonComparatorResultImplBuilder jsonComparatorResultImplBuilder) {
+    this.success = jsonComparatorResultImplBuilder.success;
     this.modifiedFields = jsonComparatorResultImplBuilder.modifiedFields;
     this.missingFields = jsonComparatorResultImplBuilder.missingFields;
     this.newFields = jsonComparatorResultImplBuilder.newFields;
@@ -92,13 +93,18 @@ public class JsonComparatorResultImpl implements JsonComparatorResult {
    * JsonComparatorResultImplBuilder class represents a builder for JsonComparatorResultImpl
    */
   public static final class JsonComparatorResultImplBuilder {
-
+    private boolean success;
     private Collection<FieldComparison> modifiedFields = new ArrayList<>();
     private Collection<FieldComparison> missingFields = new ArrayList<>();
     private Collection<FieldComparison> newFields = new ArrayList<>();
 
     private JsonComparatorResultImplBuilder() {
       /**  see <code>JsonComparatorResultImpl.builder()</code>*/
+    }
+
+    public JsonComparatorResultImplBuilder success(boolean success) {
+      this.success = success;
+      return this;
     }
 
     public JsonComparatorResultImplBuilder modifiedFields(Collection<FieldComparison> modifiedFields) {
